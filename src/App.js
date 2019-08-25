@@ -1,26 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Layout, Menu, Icon } from "antd";
+import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Home from "./Home";
+import Resume from "./Resume";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const { Header, Content, Footer, Sider } = Layout;
+const { SubMenu } = Menu;
+
+class App extends React.Component {
+  state = {
+    collapsed: false
+  };
+
+  onCollapse = collapsed => {
+    console.log(collapsed);
+    this.setState({ collapsed });
+  };
+
+  menuIcon(type, name, keyValue) {
+    return (
+      <Menu.Item key={keyValue}>
+        <Icon type={type} />
+        <span>{name}</span>
+        <Link to={"/" + name} />
+      </Menu.Item>
+    );
+  }
+
+  render() {
+    return (
+      <Router>
+        <Layout style={{ minHeight: "100vh" }}>
+          <Sider
+            collapsible
+            collapsed={this.state.collapsed}
+            onCollapse={this.onCollapse}
+          >
+            <div className="logo" />
+            <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+              {this.menuIcon("home", "Home", "1")}
+              {this.menuIcon("file", "Resume", "2")}
+              <SubMenu
+                key="sub1"
+                title={
+                  <span>
+                    <Icon type="project" />
+                    <span>Projects</span>
+                  </span>
+                }
+              >
+                {this.menuIcon("file-search", "Chrome Project", "3")}
+                {this.menuIcon("line", "Snake", "4")}
+              </SubMenu>
+              {this.menuIcon("rocket", "Writings", "5")}
+            </Menu>
+          </Sider>
+          <Layout>
+            <Content style={{ margin: "0 16px" }}>
+              <div>
+                <Route exact path="/Home" component={Home} />
+                <Route exact path="/Resume" component={Resume} />
+                <Route exact path="/Chrome Project" component={Home} />
+                <Route exact path="/Snake" component={Home} />
+                <Route exact path="/Writings" component={Home} />
+              </div>
+            </Content>
+            <Footer style={{ textAlign: "center" }}>
+              Ant Design ©2018 Created by Ant UED
+            </Footer>
+          </Layout>
+        </Layout>
+      </Router>
+    );
+  }
 }
-
 export default App;
