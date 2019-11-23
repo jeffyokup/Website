@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import Resume from "./Resume";
+import Dots_And_Boxes from "./Dots_And_Boxes_Game_Src_Code/Dots_And_Boxes"
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -52,8 +53,9 @@ class App extends React.Component {
               >
                 {this.menuIcon("file-search", "Chrome Project", "3")}
                 {this.menuIcon("line", "Snake", "4")}
+                {this.menuIcon("line", "Game", "5")}
               </SubMenu>
-              {this.menuIcon("rocket", "Writings", "5")}
+              {this.menuIcon("rocket", "Writings", "6")}
             </Menu>
           </Sider>
           <Layout>
@@ -64,6 +66,7 @@ class App extends React.Component {
                 <Route exact path="/Chrome Project" component={Home} />
                 <Route exact path="/Snake" component={Home} />
                 <Route exact path="/Writings" component={Home} />
+                <Route exact path="/Game" component={Dots_And_Boxes} />
               </div>
             </Content>
             <Footer style={{ textAlign: "center" }}>
